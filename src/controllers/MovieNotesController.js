@@ -5,10 +5,8 @@ const knex = require("../database/knex");
 class MovieNotesController {
   async index(req, res) {
     // lista de acordo com o filtro recebido, pode ser por title, user_id ou tags
-
-    const { title, user_id, tags } = req.query;
-
-    console.log(req.query);
+    const { title, tags, order } = req.query;
+    const user_id = req.user.id;
 
     let movie_notes;
 
@@ -16,21 +14,22 @@ class MovieNotesController {
       const filterTags = tags.split(',').map(tag => tag.trim());
 
       movie_notes = await knex("movie_notes")
-        .where("movie_notes.user_id", user_id)
+        // .where("user_id", user_id)
         .whereLike("title", `%${title}%`)
         .whereIn("movie_tags.name", filterTags)
         .innerJoin("movie_tags", "movie_tags.movie_note_id", "movie_notes.id")
         .orderBy("title");
     } else {
       movie_notes = await knex("movie_notes")
-        .where({ user_id })
+        // .where({ user_id })
         .whereLike("title", `%${title}%`)
         .orderBy("title");
     }
 
-    const userTags = await knex("movie_tags").where({ user_id });
+    const userTags = await knex("movie_tags")
+    // .where({ user_id });
 
-    const notesWithTags = movie_notes.map(movie_note => {
+    let notesWithTags = movie_notes.map(movie_note => {
       const noteTags = userTags.filter(tag => tag.movie_note_id === movie_note.id);
 
       return {
@@ -39,7 +38,11 @@ class MovieNotesController {
       }
     });
 
-    res.status(200).json(notesWithTags);
+    if (order === "desc") {
+      notesWithTags = notesWithTags.reverse();
+    }
+
+    return res.status(200).json(notesWithTags);
   }
 
   async show(req, res) {
@@ -53,21 +56,26 @@ class MovieNotesController {
     if (!movie_note) {
       throw new AppError("Nota não encontrada.");
     }
-
+    
+    const author = await knex("users")
+      .select("name", "email", "avatar")
+      .where("id", movie_note.user_id)
+      .first();
+    
     const movie_tags = await knex("movie_tags")
       .where("movie_note_id", id)
       .orderBy("name");
      
-    res.status(200).json({
+    return res.status(200).json({
       ...movie_note,
-      movie_tags
+      movie_tags,
+      author
     });
   }
 
   async create(req, res) {
     const { title, description, rating, tags } = req.body;
-
-    const { user_id } = req.params;
+    const user_id = req.user.id;
 
     const [ movie_note_id ] = await knex("movie_notes")
       .insert({
@@ -87,7 +95,16 @@ class MovieNotesController {
 
     await knex("movie_tags").insert(tagsInsert);
 
-    res.status(201).json();
+    const movie_note = {
+      id: movie_note_id,
+      title,
+      description,
+      rating,
+      user_id,
+      tags
+    }
+
+    return res.status(201).json(movie_note)
   }
 
   async delete(req, res) {
@@ -95,7 +112,7 @@ class MovieNotesController {
 
     await knex("movie_notes").where({ id }).delete();
 
-    res.json();
+    return res.json();
   }
 }
 
