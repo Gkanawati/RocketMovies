@@ -17,7 +17,7 @@ Outro desafio e uma novidade para meu aprendizado nesse projeto foi o trabalho c
 
 ## 🔗 Link do projeto:
 
-https://rocketnotes-gk.netlify.app/
+https://rocketmovies-gk.netlify.app/
 
 ## 💡 Tecnologias usadas:
 
@@ -51,12 +51,12 @@ npm run dev
 
 ## :computer: Telas
 
-![RocketNotes_1](https://github.com/Gkanawati/rocketmovies/assets/87530595/879771b8-046f-4015-a7da-54ae08f1b196)
+![RocketMovies_1](https://github.com/Gkanawati/rocketmovies/assets/87530595/879771b8-046f-4015-a7da-54ae08f1b196)
 
-![RocketNotes_2](https://github.com/Gkanawati/rocketmovies/assets/87530595/482ff12f-180e-4c70-ba8e-d8b86e7edb35)
+![RocketMovies_2](https://github.com/Gkanawati/rocketmovies/assets/87530595/482ff12f-180e-4c70-ba8e-d8b86e7edb35)
 
-![RocketNotes_3](https://github.com/Gkanawati/rocketmovies/assets/87530595/b05bb471-dd27-4c81-b233-250c66dbb418)
+![RocketMovies_3](https://github.com/Gkanawati/rocketmovies/assets/87530595/b05bb471-dd27-4c81-b233-250c66dbb418)
 
-![RocketNotes_4](https://github.com/Gkanawati/rocketmovies/assets/87530595/11732f5e-0ba1-4e06-bf17-b3e26ebbb73d)
+![RocketMovies_4](https://github.com/Gkanawati/rocketmovies/assets/87530595/11732f5e-0ba1-4e06-bf17-b3e26ebbb73d)
 
-![RocketNotes_5](https://github.com/Gkanawati/rocketmovies/assets/87530595/2a4c6ed7-82c6-490b-866d-8b18b551b55f)
+![RocketMovies_5](https://github.com/Gkanawati/rocketmovies/assets/87530595/2a4c6ed7-82c6-490b-866d-8b18b551b55f)
